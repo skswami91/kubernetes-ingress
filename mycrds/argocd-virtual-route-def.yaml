@@ -1,0 +1,18 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServerRoute
+metadata:
+  name: argocd-vsroute
+  namespace: argo
+spec:
+  host: a83fd17ff76904f1cb80c9e28dcd8c04-634312345.ap-south-1.elb.amazonaws.com
+  upstreams:
+  - name: argocd-upstream
+    service: argocd-server
+    port: 443
+    #  - name: argocd-secure-upstream
+    #    service: argocd-server
+    #    port: 443
+  subroutes:
+  - path: /argocd
+    action:
+      pass: argocd-upstream

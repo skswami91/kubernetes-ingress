@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: access-jenkins-and-argocd-ui
+  namespace: jenkins
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+        #  tls:
+        #  - hosts:
+        #    - jenkins.swamisandeepcloudrider.com
+        #    secretName: tls-secret
+  rules:
+  - host: jenkins.swamisandeepcloudrider.com
+    http:
+      paths:
+        - backend:
+            serviceName: jenkins-service
+            servicePort: 80
+            #          path: /jenkins

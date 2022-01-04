@@ -1,0 +1,15 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServerRoute
+metadata:
+  name: jenkins-vsroute
+  namespace: jenkins
+spec:
+  host: a83fd17ff76904f1cb80c9e28dcd8c04-634312345.ap-south-1.elb.amazonaws.com
+  upstreams:
+  - name: jenkins-upstream
+    service: access-ui-jenkins
+    port: 80
+  subroutes:
+  - path: /jenkins
+    action:
+      pass: jenkins-upstream

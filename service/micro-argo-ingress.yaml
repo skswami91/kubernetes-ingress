@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: access-argocd-ui
+  namespace: argo
+  annotations:
+          #    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+          #    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: argocd.swamisandeepcloudrider.com
+    http:
+      paths:
+        - backend:
+            serviceName: argocd-server
+            servicePort: https
